@@ -104,3 +104,25 @@ Expected POST (example):
 ---
 
 **All the best!**
+
+The most interesting yet challenging part for me was implementing the grouping logic for the securities. At first glance, it seemed simple - just group by rtaName and lienRefNo. But when I actually started coding, I faced some tricky parts:
+
+1.The Grouping Mechanism:
+I initially tried using array methods like reduce() but found the object-based approach (grouped: { [key: string]: LienSecurity[] }) to be more readable and efficient. Creating those composite keys like "CAMS_LR001" felt like solving a puzzle!
+
+2.Handling Edge Cases:
+I spent extra time making sure the code handled scenarios like:
+
+->When all entries have lienUnits = 0
+
+->When no entries match the PAN/mobile
+
+->When a group has only one security
+
+3.Type Safety:
+Defining the RevokePayload interface was satisfying - it helped catch errors early when I accidentally tried to include wrong properties. The TypeScript compiler became my safety net.
+
+4.The Mock API Simulation:
+Making the async calls sequential with await was a good learning experience. I had to think carefully about where to place the try-catch blocks to ensure one failed request wouldn't stop the whole process.
+
+The most rewarding moment was seeing the console log showing successful grouped requests with all the correct details. It made me appreciate how careful data transformation can turn messy raw data into clean, structured API payloads.
